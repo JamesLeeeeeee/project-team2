@@ -1,5 +1,5 @@
 # 네이버 크롤러 Version 1.0
-
+import BeautifulSoup
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
@@ -265,7 +265,9 @@ class Crawler(Searcher):
             time.sleep(1)
             self.driver.find_element_by_xpath(
                 '//*[@id="_nx_lnb_more"]/div/ul/li[2]/a').click()
-            encyclopedia = self.soup.find_all('div', 'nkindic_area')
+
+            encyclopedia = soup.find_all('div', 'nkindic_area')
+
             print()
             self.cnt = 0
             while self.cnt <= 0:
@@ -355,7 +357,11 @@ class Crawler(Searcher):
         self.driver.find_element_by_xpath(
             '//*[@id="main_pack"]/div[2]/div/div/a[1]').click()
         time.sleep(1)
-        encyclopedia = self.soup.find_all('div', 'nkindic_area')
+
+        html = self.driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        encyclopedia =soup.find_all('div', 'nkindic_area')
+
         print()
         no = 1
         count = 1
