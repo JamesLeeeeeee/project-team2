@@ -532,12 +532,23 @@ class SaveMenu(Crawler):
             data['내용'] = self.content2
             data['작성일'] = self.dates2
             data['카페명'] = self.writer2
-            data.to_excel(fx_name)
-            print('xls 파일 저장 경로 : %s' % fx_name)
+            data.to_excel(fc_name)
+            print('xls 파일 저장 경로 : %s' % fc_name)
             print("="*80)
         #### 지식백과 ####
         elif searchType == 4:
-            pass
+            nav_save=pd.DataFrame()
+            nav_save['번호']=self.no2
+            nav_save['제목']=self.title2
+            try:
+                nav_save['부제목']=self.s_title2
+            except:
+                pass
+            nav_save['내용']=self.content2
+            nav_save['출처']=self.sources
+            nav_save.to_excel(fc_name)
+            print('xls 파일 저장 경로 : %s' % fc_name)
+            print("="*80)
         #### 어학사전 ####
         elif searchType == 5:
             pass
@@ -573,7 +584,18 @@ class SaveMenu(Crawler):
             print("="*80)
         #### 지식백과 ####
         elif searchType == 4:
-            pass
+            nav_save=pd.DataFrame()
+            nav_save['번호']=self.no2
+            nav_save['제목']=self.title2
+            try:
+                nav_save['부제목']=self.s_title2
+            except:
+                pass
+            nav_save['내용']=self.content2
+            nav_save['출처']=self.sources
+            nav_save.to_excel(fx_name)
+            print('xls 파일 저장 경로 : %s' % fx_name)
+            print("="*80)
         #### 어학사전 ####
         elif searchType == 5:
             pass
