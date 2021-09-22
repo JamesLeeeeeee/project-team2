@@ -247,7 +247,133 @@ class Crawler(Searcher):
 
     ###### 백과사전 #######
     def know(self):
-        pass
+        global no2
+        global title2
+        global content2
+        global sources
+        global s_title2
+        html= self.driver.page_source
+        soup=BeautifulSoup(html,'html.parser')
+
+        encyclopedia= soup.find_all('section','sc_new sp_nkindic _au_kindic_collection')
+
+        #지식백과가 없을 시
+        if len(encyclopedia)==0:
+            self.driver.find_element_by_xpath('//*[@id="_nx_lnb_more"]/a').click()
+            time.sleep(1)
+            self.driver.find_element_by_xpath('//*[@id="_nx_lnb_more"]/div/ul/li[2]/a').click()
+            encyclopedia=self.soup.find_all('div','nkindic_area')
+            print()
+            self.cnt=0
+            while self.cnt<=0:
+                try:
+                    self.cnt=int(input("크롤링할 페이지는 몇 페이지 입니까?: "))
+                    print()
+                    if self.cnt<=0:
+                        print("1부터 입력가능합니다.")
+                        print()
+                        continue
+                except:
+                    print("1이상의 숫자로 입력해주세요.")
+                    print()
+                    continue
+                
+            print()
+            print('='*80)
+            no=1
+            count=1
+            for x in range(1,self.cnt+1):
+                html=self.driver.page_source
+                soup=BeautifulSoup(html,'html.parser')
+                encyclopedia=soup.find_all('div','nkindic_area')
+
+                for i in encyclopedia:
+                    subject=i.find_all('div','nkindic_tit _svp_content')
+                    for j in subject:
+                        content=i.find('div','api_txt_lines desc')
+                        source=i.find('span','source_txt')
+                        print('번호:',no)
+                        self.no2.append(no)
+                        print("제목:",j.text.strip())
+                        self.title2.append(j.text.strip())
+                        print("내용:",content.text.strip())
+                        self.content2.append(content.text.strip())
+                        print("출처:",source.text.strip())
+                        self.sources.append(source.text.strip())
+                        print()
+                        no+=1
+                if self.cnt>count:
+                    self.driver.find_element_by_xpath('//*[@id="main_pack"]/div[2]/div/a[2]').click()
+                    count+=1
+                    print(f'-------------------{count}번째 페이지입니다.---------------')
+                    time.sleep(1)
+        #지식백과가 있을 시
+        else:
+            no=1
+            count=1
+            for i in encyclopedia:
+                title=i.find_all('div','nkindic_tit _svp_content')
+                content=i.find_all('div','api_txt_lines desc')
+                source=i.find_all('div','nkindic_source')
+                d=0
+                for a in title:
+                    b=a.find_all('a')
+                    print()
+                    print('번호:',no)
+                    self.no2.append(no)
+                    print('1.제목:',b[0].text)    
+                    self.subjects.append(b[0].text)
+                    if len(b)>1:
+                        print('부제목:',b[1].text)
+                        self.s_title2.append(b[1].text)
+                        print('내용:',content[d].text)
+                        self.content2.append(content[d].text)
+                        print('출처:',source[d].text.strip())
+                        self.sources.append(source[d].text)
+                        print()
+                    else:
+                        print('부제목:','')            #부제목 없을시
+                        print('내용:',content[d].text)
+                        self.content2.append(content[d].text)
+                        print('출처:',source[d].text.strip())
+                        self.sources.append(source[d].text.strip())
+                        print()
+                    d+=1
+                    no+=1
+                    
+#         #통합으로 돌아가기
+#         self.driver.find_element_by_link_text("통합").click()
+    def know_text(self):
+        from bs4 import BeautifulSoup
+        from selenium import webdriver
+        import time
+        self.driver.find_element_by_xpath('//*[@id="main_pack"]/div[2]/div/div/a[1]').click()
+        time.sleep(1)
+        encyclopedia=self.soup.find_all('div','nkindic_area')
+        print()
+        no=1
+        count=1
+        for x in range(1,self.cnt+1):
+            html=self.driver.page_source
+            soup=BeautifulSoup(html,'html.parser')
+            encyclopedia=soup.find_all('div','nkindic_area')
+
+            for i in encyclopedia:
+                subject=i.find_all('div','nkindic_tit _svp_content')
+                for j in subject:
+                    content=i.find('div','api_txt_lines desc')
+                    source=i.find('span','source_txt')
+                    print('번호:',no)
+                    print("제목:",j.text.strip())
+                    print("내용:",content.text.strip())
+                    print("출처:",source.text.strip())
+                    print()
+                    no+=1
+            if self.cnt>count:
+                self.driver.find_element_by_xpath('//*[@id="main_pack"]/div[2]/div/a[2]').click()
+                count+=1
+                print(f'-------------------{count}번째 페이지입니다.---------------')
+                time.sleep(1)
     ###### 어학사전 #######
 
     def lan_dic(self):
