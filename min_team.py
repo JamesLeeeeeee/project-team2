@@ -483,8 +483,7 @@ class SaveMenu(Crawler):
         now = time.localtime()
         f_name = "%04d-%02d-%02d-%02d-%02d" % (
             now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
-        searchMenu = {"1": "블로그", "2": "뉴스",
-                      "3": "카페", "4": "지식백과", "5": "어학사전"}
+        searchMenu = {"1": "블로그", "2": "뉴스", "3": "카페", "4": "지식백과", "5": "어학사전"}
         for key, value in searchMenu.items():
             if int(key) == searchType:
                 ff_name = self.f_dir+f_name+"-"+self.search+"-"+value+".txt"
@@ -517,8 +516,7 @@ class SaveMenu(Crawler):
         now = time.localtime()
         f_name = "%04d-%02d-%02d-%02d-%02d" % (
             now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
-        searchMenu = {"1": "블로그", "2": "뉴스",
-                      "3": "카페", "4": "지식백과", "5": "어학사전"}
+        searchMenu = {"1": "블로그", "2": "뉴스", "3": "카페", "4": "지식백과", "5": "어학사전"}
         for key, value in searchMenu.items():
             if int(key) == searchType:
                 fc_name = self.f_dir+f_name+"-"+self.search+"-"+value+".csv"
@@ -564,8 +562,7 @@ class SaveMenu(Crawler):
         now = time.localtime()
         f_name = "%04d-%02d-%02d-%02d-%02d" % (
             now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min)
-        searchMenu = {"1": "블로그", "2": "뉴스",
-                      "3": "카페", "4": "지식백과", "5": "어학사전"}
+        searchMenu = {"1": "블로그", "2": "뉴스", "3": "카페", "4": "지식백과", "5": "어학사전"}
         for key, value in searchMenu.items():
             if int(key) == searchType:
                 fx_name = self.f_dir+f_name+"-"+self.search+"-"+value+".xls"
